@@ -1,9 +1,17 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 {
 	"compilerOptions": {
 		"target": "es2015",
 		"module": "commonjs"
 	}	
+=======
+{
+	"compilerOptions": {
+		"target": "es2015",
+		"module": "commonjs"
+	}	
+>>>>>>> fe38445dcfe12796d336fcb7d9a0a390df30de5e
 =======
 {
 	"compilerOptions": {

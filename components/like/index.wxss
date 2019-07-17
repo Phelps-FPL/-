@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 .container{
     display: inline-flex;
     flex-direction: row;
@@ -15,6 +16,24 @@
     position: relative;
     bottom: 10rpx;
     left: 6rpx;
+=======
+.container{
+    display: inline-flex;
+    flex-direction: row;
+    padding: 10rpx;
+}
+.container image{
+    width: 32rpx;
+    height: 28rpx;
+}
+.container text{
+    font-size: 24rpx;
+    line-height: 24rpx;
+    color:#bbb;
+    position: relative;
+    bottom: 10rpx;
+    left: 6rpx;
+>>>>>>> fe38445dcfe12796d336fcb7d9a0a390df30de5e
 =======
 .container{
     display: inline-flex;

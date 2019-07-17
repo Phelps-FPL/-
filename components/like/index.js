@@ -35,12 +35,15 @@ Component({
         like:!like
       })
 <<<<<<< HEAD
+<<<<<<< HEAD
       //激活自定义事件
       let behavior = this.properties.like?'like' : 'cancel'
       //监听自定义事件,第一参数是事件名,第2个参数是设置detail属性,
       this.triggerEvent('like',{
         behavior:behavior
       },{})
+=======
+>>>>>>> fe38445dcfe12796d336fcb7d9a0a390df30de5e
 =======
 >>>>>>> fe38445dcfe12796d336fcb7d9a0a390df30de5e
      }
