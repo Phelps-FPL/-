@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+ <v-like bind:like="onLike" like="{{classic.like_status}}" count="{{classic.fav_nums}}" />
+ <v-movie img="{{classic.image}}" content="{{classic.content}}" ></v-movie>
+=======
+ <v-like/>
+>>>>>>> fe38445dcfe12796d336fcb7d9a0a390df30de5e

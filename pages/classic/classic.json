@@ -1,0 +1,11 @@
+{
+    "usingComponents":{
+<<<<<<< HEAD
+        "v-like":"/components/like/index",
+        "v-movie":"/components/classic/movie/index"
+=======
+        "v-like":"/components/like/index"
+>>>>>>> fe38445dcfe12796d336fcb7d9a0a390df30de5e
+       
+    }
+}
