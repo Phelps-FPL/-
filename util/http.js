@@ -26,7 +26,9 @@ import {config} from '../config.js'
                     // endWith
                     let code = res.statusCode.toString()
                     if(code.startsWith('2')){
-                        params.success(res.data)
+                        // params.success(res.data)
+                        // 要判断发送请求的组件事件是否有使用success函数
+                        params.success && params.success(res.data)
                     }
                     else{
                         let error_code = res.data.error_code
