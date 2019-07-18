@@ -47,17 +47,22 @@ Page({
    },
 
   onNext:function(e){
-
+    this._updateClassic('next')
   },
   onPrevious:function (e) { 
+    this._updateClassic('previous')
+   },
+   _updateClassic:function (nop) { 
     let index = this.data.classic.index
-    classicModel.getProvious(index,(res)=>{
+    classicModel.getClassic(index,nop,(res)=>{
       // console.log(res)
       this.setData({
-        classic:res
+        classic:res,
+        latest:classicModel.isLatest(res.index),
+        first:classicModel.isFirst(res.index)
       })
     })
-   },
+    },
   //     http.request({
   //       url:'classic/latest',
   //       success:(res)=>{
