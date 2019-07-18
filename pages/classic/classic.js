@@ -13,11 +13,9 @@ Page({
    */
   data: {
 
-    classic:null
-    
-
-    
-
+    classic:null,
+    latest:true,
+    first:false
   },
 
   /**
@@ -48,7 +46,18 @@ Page({
       this.data.classic.type)
    },
 
+  onNext:function(e){
 
+  },
+  onPrevious:function (e) { 
+    let index = this.data.classic.index
+    classicModel.getProvious(index,(res)=>{
+      // console.log(res)
+      this.setData({
+        classic:res
+      })
+    })
+   },
   //     http.request({
   //       url:'classic/latest',
   //       success:(res)=>{
