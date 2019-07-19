@@ -15,7 +15,10 @@ Page({
 
     classic:null,
     latest:true,
-    first:false
+    first:false,
+    // 点赞数量和状态
+    likeCount:0,
+    likeStatus:false
   },
 
   /**
@@ -30,11 +33,14 @@ Page({
     //     appkey:"GgRhTjUNUYn1fHke"
     //   }
     // })
-
+    // 最新期刊
     classicModel.getLatest((res)=>{
       // console.log(res)
       this.setData({
-        classic:res
+        classic:res,
+        //设置获取最新的点赞数和状态
+        likeCount:res.fav_nums,
+        likeStatus:res.like_status
       })
       // console.log(this.data)
     })
@@ -52,17 +58,31 @@ Page({
   onPrevious:function (e) { 
     this._updateClassic('previous')
    },
+  //  切换期刊
    _updateClassic:function (nop) { 
     let index = this.data.classic.index
     classicModel.getClassic(index,nop,(res)=>{
       // console.log(res)
+      // 调用点赞数的状态和数
+      this._getLikeStatus(res.id, res.type)
       this.setData({
+        
         classic:res,
         latest:classicModel.isLatest(res.index),
         first:classicModel.isFirst(res.index)
       })
     })
     },
+    //获取点赞状态的函数
+    _getLikeStatus:function(artID,category){
+        likeModel.getClassicLikeStatus(artID,category,(res)=>{
+          this.setData({
+            likeStatus:res.like_status,
+            likeCount:res.fav_nums
+          })
+        })
+    },
+
   //     http.request({
   //       url:'classic/latest',
   //       success:(res)=>{
