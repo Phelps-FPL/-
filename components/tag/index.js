@@ -17,10 +17,16 @@ Component({
 
   },
 
+
   /**
    * 组件的方法列表
    */
   methods: {
-
+    // 自定义监听事件,监听文本内容
+    onTap(e){
+      this.triggerEvent('tapping',{
+        text:this.properties.text
+      })
+    }
   }
 })

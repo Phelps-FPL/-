@@ -1,6 +1,8 @@
 // pages/book-detail/book-detail.js
 import{ BookModel} from '../../models/book.js'
+import{LikeModel} from '../../models/like.js'
 const bookModel = new BookModel()
+const likeModel = new LikeModel()
 Page({
 
   /**
@@ -10,7 +12,8 @@ Page({
     comments:[],
     book:null,
     likeStatus:false,
-    likeCount:0
+    likeCount:0,
+    posting:false
   },
 
   /**
@@ -42,7 +45,55 @@ Page({
     })
 
   },
+  //获取详情点赞的状态和数据
+  onLike(e){
+    const like_or_cancel = e.detail.behavior
+    likeModel.like(like_or_cancel,this.data.book.id,400)
 
+  },
+  // 点击时弹窗输入框
+  onFakePost(e){
+    this.setData({
+      posting:true
+    })
+  },
+  // 点击取消取消弹框
+  onCancel(e){
+    this.setData({
+      posting:false
+    })
+  },
+  onPost(e){
+    // 返回输入框文字数据
+    const comment = e.detail.text || e.detail.value
+
+    if(!comment){
+      return
+    }
+    if(comment.length > 12){
+      wx.showToast({
+        title:'短评最多12个字',
+        icon:'none'
+      })
+      return
+    }
+    // 把content的数据发送到服务器
+    bookModel.postComment(this.data.book.id,comment)
+    .then(res =>{
+      wx.showToast({
+        title:'+ 1',
+        icon:'none'
+      })
+      this.data.comments.unshift({
+        content:comment,
+        nums:1
+      })
+      this.setData({
+        comments:this.data.comments,
+        posting:false
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
