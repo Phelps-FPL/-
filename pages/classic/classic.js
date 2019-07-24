@@ -45,6 +45,10 @@ Page({
       // console.log(this.data)
     })
   },
+   onReachBottom(e){
+    
+    console.log(1112)
+  },
 
   onLike:function (e) { 
     let behavior = e.detail.behavior

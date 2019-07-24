@@ -1,6 +1,6 @@
+import {HTTP} from '../util/http-p.js'
 
-
-class KeywordModel{
+class KeywordModel extends HTTP{
     key ='q'
     maxLength = 5
     getHistory(){
@@ -12,7 +12,9 @@ class KeywordModel{
         return words
     }
     getHot(){
-
+        return this.request({
+            url:'/book/hot_keyword'
+        })
     }
     addToHistory(keyword){
         let words = this.getHistory()

@@ -1,5 +1,6 @@
 // pages/book/book.js
 import {BookModel} from '../../models/book.js'
+import {random} from '../../util/common.js'
 
 const bookModel = new  BookModel()
 
@@ -10,7 +11,8 @@ Page({
    */
   data: {
     books:[],
-    searching:false
+    searching:false,
+    more:''
   },
 
   /**
@@ -36,6 +38,12 @@ Page({
     this.setData({
       searching:false
     })
+  },
+  onReachBottom(e){
+    this.setData({
+      more:true
+    })
+    console.log(1112)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -76,7 +84,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.setData({
+      more:random(15)
+    })
   },
 
   /**
