@@ -55,7 +55,7 @@ Component({
         return
       }
       // 如果loading为true的话,说明正在发送请求,直接return
-      if(this._isLocked()){
+      if(this.isLocked()){
         return
       }
       //获取上一次取得数据的长度
@@ -64,16 +64,16 @@ Component({
       // 行为封装代码的调用
       if (this.hasMore()){
         // 判断当前是否锁了,当加载进来之后再把loading加锁
-        this._locked()
+        this.locked()
         bookModel.search(length, this.data.q)
         .then(res => {
           //把上一次的数据和新获取的数据合并
           this.setMoreData(res.books)
             //发送请求时把锁设为false
-            this._unLocked()
+            this.unLocked()
             // this.data.loading = false
           },()=>{
-            this._unLocked()
+            this.unLocked()
           })
       } 
     },
@@ -128,18 +128,6 @@ Component({
         q:''
       })
     },
-    _isLocked(){
-      return this.data.loading?true:false
-    },
-    _locked(){
-      this.setData({
-        loading:true
-      })
-    },
-    _unLocked(){
-      this.setData({
-        loading: false
-      })
-    }
+    
   }
 })
