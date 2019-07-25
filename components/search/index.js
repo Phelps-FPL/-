@@ -1,5 +1,6 @@
 import { KeywordModel } from "../../models/keyword.js"
 import { BookModel } from "../../models/book.js"
+import { paginationBev } from "../behaviors/pagination.js"
 
 
 const keyWordModel = new KeywordModel()
@@ -9,10 +10,11 @@ Component({
   /**
    * 组件的属性列表
    */
+  behaviors: [paginationBev],
   properties: {
     more:{
       type:String,
-      observer:'_load_more'
+      observer:'loadMore'
     }
   },
 
@@ -22,9 +24,10 @@ Component({
   data: {
     historyWords:[],
     hotWords:[],
-    dataArray:[],
     searching:false,
-    q:''
+    q:'',
+    loading:false,
+    loadingCenter:false
   },
   attached(){
     // 显示历史搜索
@@ -46,33 +49,96 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    _load_more(){
-      console.log(1234)
+    loadMore(){
+      console.log(1123)
+      if(!this.data.q){
+        return
+      }
+      // 如果loading为true的话,说明正在发送请求,直接return
+      if(this._isLocked()){
+        return
+      }
+      //获取上一次取得数据的长度
+      const length = this.data.dataArray.length
+      
+      // 行为封装代码的调用
+      if (this.hasMore()){
+        // 判断当前是否锁了,当加载进来之后再把loading加锁
+        this._locked()
+        bookModel.search(length, this.data.q)
+        .then(res => {
+          //把上一次的数据和新获取的数据合并
+          this.setMoreData(res.books)
+            //发送请求时把锁设为false
+            this._unLocked()
+            // this.data.loading = false
+          },()=>{
+            this._unLocked()
+          })
+      } 
     },
     onCancel(e){
       this.triggerEvent('cancel',{},{})
+      this.initialize()
+
     },
     onDelete(e){
-      this.setData({
-        searching:false
-      })
+     this._closeResult()
+      this.initialize()
+
     },
 
     onConfirm(e){
-      this.setData({
         // 一点击搜索的内容就隐藏页面
-        searching:true
-      })
+      this._showResult()
+      this._showLoadingCenter()
       
       // 搜索内容的序号
       const q = e.detail.value || e.detail.text
       bookModel.search(0, q).then(res=>{
+        // 把行为里的封装代码进行调用
+        this.setMoreData(res.books)
+        this.setTotal(res.total)
         this.setData({
-          dataArray:res.books,
           q
         })
         // 让历史搜索只有与返回来相同书籍的有效值，无效值不添加
         keyWordModel.addToHistory(q)
+        this._hideLoadingCenter()
+      })
+    },
+    _showLoadingCenter(){
+      this.setData({
+        loadingCenter: true
+      })
+    },
+    _hideLoadingCenter() {
+      this.setData({
+        loadingCenter: false
+      })
+    },
+    _showResult(){
+      this.setData({
+        searching:true
+      })
+    },
+    _closeResult(){
+      this.setData({
+        searching:false,
+        q:''
+      })
+    },
+    _isLocked(){
+      return this.data.loading?true:false
+    },
+    _locked(){
+      this.setData({
+        loading:true
+      })
+    },
+    _unLocked(){
+      this.setData({
+        loading: false
       })
     }
   }
