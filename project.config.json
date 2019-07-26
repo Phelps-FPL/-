@@ -24,12 +24,15 @@
 	"libVersion": "2.7.4",
 	"appid": "wxb8c081910233a30f",
 	"projectname": "%E6%9E%97%E9%A3%8E",
+	"svr": "server/",
+	"client": "client/",
+	"qcloudRoot": "server/",
+	"miniprogramRoot": "client/",
+	"cloudfunctionTemplateRoot": "",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
+	"scripts": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -44,11 +47,10 @@
 			"list": []
 		},
 		"game": {
-			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": -1,
 			"list": [
 				{
 					"id": -1,
@@ -61,6 +63,7 @@
 					"id": -1,
 					"name": "pages/book/book",
 					"pathName": "pages/book/book",
+					"query": "",
 					"scene": null
 				}
 			]
